@@ -31,3 +31,8 @@ if(TARGET SDL2::SDL2main)
 endif()
 target_link_libraries(planar_quadrotor SDL2::SDL2 SDL2_gfx Eigen matplot)
 target_include_directories(planar_quadrotor PRIVATE ${PROJECT_SOURCE_DIR})
+
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
