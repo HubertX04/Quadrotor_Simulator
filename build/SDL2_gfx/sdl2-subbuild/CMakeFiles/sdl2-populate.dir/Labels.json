@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "C:/Users/huber/Desktop/projekt4/build/SDL2_gfx/sdl2-subbuild/CMakeFiles/sdl2-populate"
+		},
+		{
+			"file" : "C:/Users/huber/Desktop/projekt4/build/SDL2_gfx/sdl2-subbuild/CMakeFiles/b6a0e2c1a711bc0785db24d5cc0ac13c/sdl2-populate.rule"
+		},
+		{
+			"file" : "C:/Users/huber/Desktop/projekt4/build/SDL2_gfx/sdl2-subbuild/CMakeFiles/13962137bbd41b02e0ce94af83793376/sdl2-populate-complete.rule"
+		},
+		{
+			"file" : "C:/Users/huber/Desktop/projekt4/build/SDL2_gfx/sdl2-subbuild/CMakeFiles/bc139fea04f828b2c0b7f8132520aa17/sdl2-populate-build.rule"
+		},
+		{
+			"file" : "C:/Users/huber/Desktop/projekt4/build/SDL2_gfx/sdl2-subbuild/CMakeFiles/bc139fea04f828b2c0b7f8132520aa17/sdl2-populate-configure.rule"
+		},
+		{
+			"file" : "C:/Users/huber/Desktop/projekt4/build/SDL2_gfx/sdl2-subbuild/CMakeFiles/bc139fea04f828b2c0b7f8132520aa17/sdl2-populate-download.rule"
+		},
+		{
+			"file" : "C:/Users/huber/Desktop/projekt4/build/SDL2_gfx/sdl2-subbuild/CMakeFiles/bc139fea04f828b2c0b7f8132520aa17/sdl2-populate-install.rule"
+		},
+		{
+			"file" : "C:/Users/huber/Desktop/projekt4/build/SDL2_gfx/sdl2-subbuild/CMakeFiles/bc139fea04f828b2c0b7f8132520aa17/sdl2-populate-mkdir.rule"
+		},
+		{
+			"file" : "C:/Users/huber/Desktop/projekt4/build/SDL2_gfx/sdl2-subbuild/CMakeFiles/bc139fea04f828b2c0b7f8132520aa17/sdl2-populate-patch.rule"
+		},
+		{
+			"file" : "C:/Users/huber/Desktop/projekt4/build/SDL2_gfx/sdl2-subbuild/CMakeFiles/bc139fea04f828b2c0b7f8132520aa17/sdl2-populate-test.rule"
+		},
+		{
+			"file" : "C:/Users/huber/Desktop/projekt4/build/SDL2_gfx/sdl2-subbuild/CMakeFiles/bc139fea04f828b2c0b7f8132520aa17/sdl2-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"sdl2-populate"
+		],
+		"name" : "sdl2-populate"
+	}
+}

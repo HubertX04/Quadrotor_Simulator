@@ -1,0 +1,10 @@
+^C:\USERS\HUBER\DESKTOP\PROJEKT4\BUILD\_DEPS\EIGEN-SUBBUILD\CMAKEFILES\55629809BB2328A0FB9F4AB79C4DF520\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/huber/Desktop/projekt4/build/_deps/eigen-subbuild -BC:/Users/huber/Desktop/projekt4/build/_deps/eigen-subbuild --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/huber/Desktop/projekt4/build/_deps/eigen-subbuild/eigen-populate.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
