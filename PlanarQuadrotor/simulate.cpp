@@ -17,7 +17,7 @@ Eigen::MatrixXf LQR(PlanarQuadrotor &quadrotor, float dt) {
     Eigen::MatrixXf K = Eigen::MatrixXf::Zero(6, 6);
     Eigen::Vector2f input = quadrotor.GravityCompInput();
 
-    Q.diagonal() << 0.004, 0.004, 400, 0.008, 0.045, 2 / 2 / M_PI;
+    Q.diagonal() << 0.004, 0.004, 400, 0.005, 0.045, 2 / 2 / M_PI;
     R.row(0) << 30, 7;
     R.row(1) << 7, 30;
 
@@ -70,7 +70,7 @@ int main(int argc, char* args[])
     goal_state << SCREEN_WIDTH/2, SCREEN_HEIGHT/2, 0, 0, 0, 0;
     quadrotor.SetGoal(goal_state);
     /* Timestep for the simulation */
-    const float dt = 0.01;
+    const float dt = 0.02;
     Eigen::MatrixXf K = LQR(quadrotor, dt);
     Eigen::Vector2f input = Eigen::Vector2f::Zero(2);
 
@@ -132,20 +132,18 @@ int main(int argc, char* args[])
             control(quadrotor, K);
             quadrotor.Update(dt);
             while(abs(x_history.back()-quadrotor.GetState()[0])>0.2 || abs(y_history.back()-quadrotor.GetState()[1])>0.2){
-                if(a>10000){
+                if(a>8000){
                     //removes from the vector
                      time.erase(time.begin());
                      x_history.erase(x_history.begin());
                      y_history.erase(y_history.begin());
                      theta_history.erase(theta_history.begin());
                      }
-            time.push_back(a++);
+            time.push_back(++a);
             x_history.push_back(quadrotor.GetState()[0]);
             y_history.push_back(quadrotor.GetState()[1]);
             theta_history.push_back(quadrotor.GetState()[2]);
-            
             }
-        
         }
     }
     SDL_Quit();
