@@ -5,6 +5,18 @@
 #include <thread>
 #include <matplot/matplot.h>
 
+void generateEngineSound(Uint8* buffer, int length, double frequency) {
+    const int amplitude = 127; // Amplituda dźwięku
+    const double sampleRate = 44100.0; // Częstotliwość próbkowania
+
+    for (int i = 0; i < length; ++i) {
+        double time = i / sampleRate;
+        double value = amplitude * sin(2.0 * M_PI * frequency * time);
+
+        buffer[i] = (Uint8)(value + 128); // Konwersja wartości do zakresu 0-255
+    }
+}
+
 Eigen::MatrixXf LQR(PlanarQuadrotor &quadrotor, float dt) {
     /* Calculate LQR gain matrix */
     Eigen::MatrixXf Eye = Eigen::MatrixXf::Identity(6, 6);
@@ -56,6 +68,27 @@ int main(int argc, char* args[])
     const int start_x=350;
     const int start_y=350;
 
+    //************************************************AUDIO************************************************
+    if (SDL_Init(SDL_INIT_AUDIO) < 0) {
+        return -1;
+    }
+
+    SDL_AudioSpec spec;
+    spec.freq = 44100; // Częstotliwość próbkowania
+    spec.format = AUDIO_U8; // Format dźwięku
+    spec.channels = 1; // Liczba kanałów
+    spec.samples = 4096; // Rozmiar bufora próbek
+    spec.callback = NULL; // Brak funkcji callback
+    spec.userdata = NULL;
+
+    SDL_AudioDeviceID deviceId = SDL_OpenAudioDevice(NULL, 0, &spec, NULL, 0);
+    if (deviceId == 0) {
+        SDL_Quit();
+        return -1;
+    }
+
+    Uint8* audioBuffer = new Uint8[spec.samples];
+    //******************************************************************************************************
 
     Eigen::VectorXf initial_state = Eigen::VectorXf::Zero(6);
     initial_state << start_x, start_y, 0, 0, 0, 0; 
@@ -144,8 +177,18 @@ int main(int argc, char* args[])
             y_history.push_back(quadrotor.GetState()[1]);
             theta_history.push_back(quadrotor.GetState()[2]);
             }
+            //********* AUDIO *********
+            double freq_audio = abs(1.0*quadrotor.GetState()[2]*100);
+            generateEngineSound(audioBuffer, spec.samples, 220+int(freq_audio)); //W Hz podajemy częstotliwość dźwięku
+            SDL_QueueAudio(deviceId, audioBuffer, spec.samples);
+            SDL_PauseAudioDevice(deviceId, 0);
+
         }
     }
+    SDL_CloseAudioDevice(deviceId);
+
+    delete[] audioBuffer;
+
     SDL_Quit();
     return 0;
 }
