@@ -178,11 +178,11 @@ int main(int argc, char* args[])
             theta_history.push_back(quadrotor.GetState()[2]);
             }
             //********* AUDIO *********
-            double freq_audio = abs(1.0*quadrotor.GetState()[2]*100);
-            generateEngineSound(audioBuffer, spec.samples, 220+int(freq_audio)); //W Hz podajemy częstotliwość dźwięku
-            SDL_QueueAudio(deviceId, audioBuffer, spec.samples);
-            SDL_PauseAudioDevice(deviceId, 0);
-
+                SDL_ClearQueuedAudio(deviceId);
+                double freq_audio = abs(quadrotor.GetState()[2]*150);
+                generateEngineSound(audioBuffer, spec.samples, 200+freq_audio); //W Hz podajemy częstotliwość dźwięku
+                SDL_QueueAudio(deviceId, audioBuffer, spec.samples);
+                SDL_PauseAudioDevice(deviceId, 0);
         }
     }
     SDL_CloseAudioDevice(deviceId);
