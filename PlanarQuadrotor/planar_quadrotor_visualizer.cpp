@@ -33,10 +33,20 @@ void PlanarQuadrotorVisualizer::render(std::shared_ptr<SDL_Renderer> &gRenderer)
         {(int)(q_x + (-szerokosc / 2 * cos_theta - wysokosc / 2 * sin_theta)), (int)(q_y + (-szerokosc / 2 * sin_theta + wysokosc / 2 * cos_theta))}
     };
 
+    Sint16 vx[4]= {
+        body[0].x,body[1].x,body[2].x,body[3].x,
+    };
+
+    Sint16 vy[4]= {
+        body[0].y,body[1].y,body[2].y,body[3].y,
+    };
+
     SDL_SetRenderDrawColor(gRenderer.get(), 0x17, 0x3F, 0x5F, 0xFF);
 
-    SDL_RenderDrawLines(gRenderer.get(), body, 4);
-    SDL_RenderDrawLine(gRenderer.get(), body[3].x, body[3].y, body[0].x, body[0].y);
+    //SDL_RenderDrawLines(gRenderer.get(), body, 4);
+    //SDL_RenderDrawLine(gRenderer.get(), body[3].x, body[3].y, body[0].x, body[0].y);
+
+    filledPolygonColor(gRenderer.get(), vx, vy, 4, 0x5F3F17FF);
 
     filledCircleColor(gRenderer.get(), q_x, q_y, 12, 0xFF5533FF);
 
