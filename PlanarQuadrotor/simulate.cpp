@@ -5,7 +5,7 @@
 #include <thread>
 #include <matplot/matplot.h>
 
-void generateEngineSound(Uint8* buffer, int length, double frequency) {
+void generateEngineSound(Uint8* buffer, int length, double frequency, double left_gain) {
     const int amplitude = 127; // Amplituda dźwięku
     const double sampleRate = 44100.0; // Częstotliwość próbkowania
 
@@ -13,7 +13,13 @@ void generateEngineSound(Uint8* buffer, int length, double frequency) {
         double time = i / sampleRate;
         double value = amplitude * sin(2.0 * M_PI * frequency * time);
 
-        buffer[i] = (Uint8)(value + 128); // Konwersja wartości do zakresu 0-255
+        // Zmiana amplitudy w zależności od kierunku ruchu
+        if (left_gain < 1.0)
+            buffer[i] = (Uint8)(value * left_gain + 2); // Lewy głośnik głośniejszy
+        else if (left_gain > 1.0)
+            buffer[i] = (Uint8)(value + 2* left_gain); // Prawy głośnik głośniejszy
+        else
+            buffer[i] = (Uint8)(value + 2); // Równa amplituda dla obu głośników
     }
 }
 
@@ -178,9 +184,11 @@ int main(int argc, char* args[])
             theta_history.push_back(quadrotor.GetState()[2]);
             }
             //********* AUDIO *********
+                double left_gain=1.0;
+                left_gain=1.0*quadrotor.GetState()[0]/(SCREEN_WIDTH/2);
                 SDL_ClearQueuedAudio(deviceId);
                 double freq_audio = abs(quadrotor.GetState()[2]*150);
-                generateEngineSound(audioBuffer, spec.samples, 200+freq_audio); //W Hz podajemy częstotliwość dźwięku
+                generateEngineSound(audioBuffer, spec.samples, 50+freq_audio, left_gain); //W Hz podajemy częstotliwość dźwięku
                 SDL_QueueAudio(deviceId, audioBuffer, spec.samples);
                 SDL_PauseAudioDevice(deviceId, 0);
         }

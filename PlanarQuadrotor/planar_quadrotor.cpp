@@ -26,6 +26,10 @@ Eigen::VectorXf PlanarQuadrotor::GetControlState() {
     return z - z_goal;
 }
 
+Eigen::VectorXf PlanarQuadrotor::Getgoal() {
+    return z_goal;
+}
+
 Eigen::Vector2f PlanarQuadrotor::GravityCompInput() {
     /* Extract parameters */
     float m = params[0];

@@ -73,6 +73,19 @@ void PlanarQuadrotorVisualizer::render(std::shared_ptr<SDL_Renderer> &gRenderer)
     filledCircleColor(gRenderer.get(), lewo_smiglo_x, lewo_smiglo_y, 10, 0xFFA54044);
     filledCircleColor(gRenderer.get(), prawo_smiglo_x, prawo_smiglo_y, 10, 0xFFA54044);
 
+    //*************** Rysowanie kropki - zaznaczenia ********************
+    Eigen::VectorXf goal = quadrotor_ptr->Getgoal();
+
+    float g_x,g_y;
+
+    g_x = goal[0];
+    g_y = goal[1];
+
+    SDL_SetRenderDrawColor(gRenderer.get(), 0x00, 0x00, 0xFF, 0xFF);
+    filledCircleColor(gRenderer.get(), g_x, g_y, 5, 0xFF000000);
+
+    //*******************************************************************
+
 
 /*
     SDL_SetRenderDrawColor(gRenderer.get(), 0x00, 0x00, 0xFF, 0xFF);
