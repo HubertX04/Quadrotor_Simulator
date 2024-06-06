@@ -57,7 +57,7 @@ void PlanarQuadrotorVisualizer::render(std::shared_ptr<SDL_Renderer> &gRenderer)
 
     static float kat = 0.0f;
 
-    kat += 0.05f;
+    kat += 0.1f;
     if (kat > 2 * M_PI) {
         kat = 0.0f;
     }
