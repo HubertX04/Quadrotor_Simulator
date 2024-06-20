@@ -35,9 +35,13 @@ Eigen::MatrixXf LQR(PlanarQuadrotor &quadrotor, float dt) {
     Eigen::MatrixXf K = Eigen::MatrixXf::Zero(6, 6);
     Eigen::Vector2f input = quadrotor.GravityCompInput();
 
+    // Q: 1,2 -> poprawia skalę, 3 -> pochył, 4 -> -//-
+    // Q: 5 -> linia lotu drona, mniejsza wartość - większy łuk, większa wartość - leci po lini prostej
     Q.diagonal() << 0.004, 0.004, 400, 0.005, 0.045, 2 / 2 / M_PI;
-    R.row(0) << 30, 7;
-    R.row(1) << 7, 30;
+
+    // R -> pochylanie się drona (płynność pochylania, modyfikowanie pochyleń)
+    R.row(0) << 50, 7;
+    R.row(1) << 7, 50;
 
     std::tie(A, B) = quadrotor.Linearize();
     A_discrete = Eye + dt * A;
